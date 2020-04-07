@@ -170,7 +170,7 @@ ngx_http_statsd_key_get_value(ngx_http_request_t *r, ngx_http_complex_value_t *c
 };
 
 static ngx_str_t
-ngx_http_statsd_key_value(ngx_str_t *value) 
+ngx_http_statsd_key_value(ngx_str_t *value)
 {
 	return *value;
 };
@@ -191,7 +191,7 @@ ngx_http_statsd_metric_get_value(ngx_http_request_t *r, ngx_http_complex_value_t
 };
 
 static ngx_uint_t
-ngx_http_statsd_metric_value(ngx_str_t *value) 
+ngx_http_statsd_metric_value(ngx_str_t *value)
 {
 	ngx_int_t n, m;
 
@@ -203,8 +203,8 @@ ngx_http_statsd_metric_value(ngx_str_t *value)
 	if (value->len > 4 && value->data[value->len - 4] == '.') {
 		n = ngx_atoi(value->data, value->len - 4);
 		m = ngx_atoi(value->data + (value->len - 3), 3);
-		return (ngx_uint_t) ((n * 1000) + m); 
-    	
+		return (ngx_uint_t) ((n * 1000) + m);
+
 	} else {
 		n = ngx_atoi(value->data, value->len);
 		if (n > 0) {
@@ -231,7 +231,7 @@ ngx_http_statsd_valid_get_value(ngx_http_request_t *r, ngx_http_complex_value_t 
 };
 
 static ngx_flag_t
-ngx_http_statsd_valid_value(ngx_str_t *value) 
+ngx_http_statsd_valid_value(ngx_str_t *value)
 {
 	return (ngx_flag_t) (value->len > 0 ? 1 : 0);
 };
@@ -276,7 +276,7 @@ ngx_http_statsd_handler(ngx_http_request_t *r)
 		b = ngx_http_statsd_valid_get_value(r, stat.cvalid, stat.valid);
 
 		if (b == 0 || s.len == 0 || n <= 0) {
-			// Do not log if not valid, key is invalid, or valud is lte 0. 
+			// Do not log if not valid, key is invalid, or valud is lte 0.
 			ngx_log_debug0(NGX_LOG_DEBUG_HTTP, r->connection->log, 0, "statsd: no value to send");
          	continue;
 		};
@@ -530,11 +530,11 @@ ngx_http_statsd_merge_loc_conf(ngx_conf_t *cf, void *parent, void *child)
 
 	if (conf->stats == NULL) {
 		sz = (prev->stats != NULL ? prev->stats->nelts : 2);
-		conf->stats = ngx_array_create(cf->pool, sz, sizeof(ngx_statsd_stat_t)); 
+		conf->stats = ngx_array_create(cf->pool, sz, sizeof(ngx_statsd_stat_t));
 		if (conf->stats == NULL) {
         	return NGX_CONF_ERROR;
 		}
-	} 
+	}
 	if (prev->stats != NULL) {
 		prev_stats = prev->stats->elts;
 		for (i = 0; i < prev->stats->nelts; i++) {
@@ -723,7 +723,7 @@ ngx_http_statsd_add_stat(ngx_conf_t *cf, ngx_command_t *cmd, void *conf, ngx_uin
 		}
 	}
 
-	return NGX_CONF_OK; 
+	return NGX_CONF_OK;
 }
 
 static char *
